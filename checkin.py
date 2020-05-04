@@ -99,7 +99,7 @@ def auto_checkin(reservation_number, first_name, last_name, email="", verbose=Fa
         date = airport_tz.localize(datetime.strptime(takeoff, '%Y-%m-%d %H:%M'))
         if date > now:
             # found a flight for checkin!
-            print("Flight information found, departing {} at {}".format(airport, date.strftime('%b %d %I:%M%p')), flush=True)
+            print("Flight information found, departing {} at {}".format(airport, date.strftime('%b %d %I:%M%p')))
             # Checkin with a thread
             t = Thread(target=schedule_checkin, args=(date, r, email))
             t.daemon = True
