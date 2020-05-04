@@ -43,7 +43,10 @@ def schedule_checkin(flight_time, reservation, email=""):
         h, m = divmod(m, 60)
         print("Too early to check in.  Waiting {} hours, {} minutes, {} seconds".format(trunc(h), trunc(m), s))
         # CSV line representing this reservation
-        csv = reservation_number + "," + first_name + "," + last_name + "," + email + "," + str(flight_time) + "\n"
+        csv = reservation_number + "," + first_name + "," + last_name + ","
+        if email is not None:
+            csv += email + ","
+        csv += str(flight_time) + "\n"
 
         # Since we're waiting for this checking, add ourselves to a list of active checkins
         # allowing us to get reset if this thread dies for some reason
@@ -74,7 +77,7 @@ def schedule_checkin(flight_time, reservation, email=""):
     os.remove(active)
     os.rename(tmp, active)
 
-    if email and email_body:
+    if email is not None and email_body is not None:
         send_confirmation_email(email, email_body)
 
 def auto_checkin(reservation_number, first_name, last_name, email="", verbose=False):
