@@ -19,7 +19,7 @@ while read -r line; do
 	email=$(printf "%s" "$line" | cut -d ',' -f 4)
 
 	# If no process exists with this confirmation number, skip it
-	if ! pgrep -f "$conf_n" > /dev/null 2>&1; then
+	if ! pgrep -a -f "$conf_n" | grep -q -v "pgrep" > /dev/null 2>&1; then
 		nohup python -u "$checkin" \
 			"$conf_n" "$f_name" "$l_name" "$email" > /dev/null 2>&1 &
 	fi
