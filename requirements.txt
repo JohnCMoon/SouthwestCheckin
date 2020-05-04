@@ -9,5 +9,6 @@ python-dateutil
 pytz
 requests
 requests_mock
+sendgrid
 uuid
 vcrpy
